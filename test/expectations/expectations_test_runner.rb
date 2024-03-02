@@ -109,7 +109,7 @@ class ExpectationsTestRunner < Minitest::Test
 
   private
 
-  def test_addon(addon_creation_method, source:)
+  def test_addon(addon_creation_method, source:, path: "/fake.rb")
     stub_no_typechecker
     message_queue = Thread::Queue.new
 
@@ -117,7 +117,7 @@ class ExpectationsTestRunner < Minitest::Test
     RubyLsp::Addon.load_addons(message_queue)
 
     store = RubyLsp::Store.new
-    uri = URI::Generic.from_path(path: "/fake.rb")
+    uri = URI::Generic.from_path(path: path)
     store.set(uri: uri, source: source, version: 1)
 
     executor = RubyLsp::Executor.new(store, message_queue)

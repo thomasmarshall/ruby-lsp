@@ -47,6 +47,8 @@ module RubyLsp
       # Discovers and loads all addons. Returns the list of activated addons
       sig { params(message_queue: Thread::Queue).returns(T::Array[Addon]) }
       def load_addons(message_queue)
+        require "ruby_lsp/addons/rake"
+
         # Require all addons entry points, which should be placed under
         # `some_gem/lib/ruby_lsp/your_gem_name/addon.rb`
         Gem.find_files("ruby_lsp/**/addon.rb").each do |addon|

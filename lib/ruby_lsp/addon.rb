@@ -136,10 +136,11 @@ module RubyLsp
     sig do
       overridable.params(
         response_builder: ResponseBuilders::DocumentSymbol,
+        uri: URI::Generic,
         dispatcher: Prism::Dispatcher,
       ).void
     end
-    def create_document_symbol_listener(response_builder, dispatcher); end
+    def create_document_symbol_listener(response_builder, uri, dispatcher); end
 
     sig do
       overridable.params(

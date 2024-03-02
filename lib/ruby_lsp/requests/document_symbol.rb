@@ -45,14 +45,14 @@ module RubyLsp
         end
       end
 
-      sig { params(dispatcher: Prism::Dispatcher).void }
-      def initialize(dispatcher)
+      sig { params(uri: URI::Generic, dispatcher: Prism::Dispatcher).void }
+      def initialize(uri, dispatcher)
         super()
         @response_builder = T.let(ResponseBuilders::DocumentSymbol.new, ResponseBuilders::DocumentSymbol)
         Listeners::DocumentSymbol.new(@response_builder, dispatcher)
 
         Addon.addons.each do |addon|
-          addon.create_document_symbol_listener(@response_builder, dispatcher)
+          addon.create_document_symbol_listener(@response_builder, uri, dispatcher)
         end
       end
 
